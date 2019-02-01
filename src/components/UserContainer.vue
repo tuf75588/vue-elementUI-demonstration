@@ -1,37 +1,31 @@
 <template>
   <div>
     <div>
-      <el-button type="primary" @click="openPrompt">Click to Add User</el-button>
+      <el-button type="primary" @click="showAddForm">Click to Add User</el-button>
+      <span v-if="showForm === true">
+        <AddUser/>
+      </span>
     </div>
     <el-table :data="userData">
       <el-table-column prop="name" label="Name"></el-table-column>
       <el-table-column prop="username" label="Username"></el-table-column>
       <el-table-column prop="email" label="Email"></el-table-column>
-
-      <el-table-column align="right">
-        <template slot="header" slot-scope="scope">
-          <el-input v-model="search" size="mini" placeholder="Type to search"/>
-        </template>
-        <template slot-scope="scope">
-          <el-button size="mini" @click="handleDelete(scope.$index, scope.row)">Edit</el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
-        </template>
-      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-import fetchUsers from '../utils/api.js';
-
+import fetchUsers from '../utils/api';
+import AddUser from './AddUser';
 export default {
   name: 'UserContainer',
   components: {
-    modal,
+    AddUser,
   },
   data: () => ({
     userData: [],
     search: '',
+    showForm: false,
   }),
   methods: {
     handleEdit(index, row) {
@@ -43,11 +37,8 @@ export default {
     onClick(userObj) {
       this.userData.push(userObj);
     },
-    openPrompt() {
-      this.$prompt('Please input your e-mail', 'Tip', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
-      });
+    showAddForm() {
+      this.showForm = true;
     },
   },
 
