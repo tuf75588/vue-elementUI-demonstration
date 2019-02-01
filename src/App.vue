@@ -1,28 +1,38 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <h1>Vue Demonstration</h1>
+    <div class="container">
+      <UserContainer/>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import fetchUsers from './utils/api.js';
+import UserContainer from './components/UserContainer';
 
 export default {
   name: 'app',
   components: {
-    HelloWorld,
+    UserContainer,
   },
 };
 </script>
 
+
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
+}
+h1 {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+  border: 1px solid #000;
 }
 </style>
