@@ -3,9 +3,11 @@
     <div>
       <label for="newUser">Please complete all fields.</label>
     </div>
-    <input type="text" v-model="newUser.name">
-    <input type="text" v-model="newUser.username">
-    <input type="email" v-model="newUser.email">
+    <!-- Listening for field changes on our data object with v-model -->
+    <input type="text" placeholder="name" v-model="newUser.name">
+    <input type="text" placeholder="username" v-model="newUser.username">
+    <input type="email" placeholder="email" v-model="newUser.email">
+    <!-- using v-bind we can dynamically change the disabled attribute based on what our computed property "isDisabled" resolves to -->
     <el-button
       type="primary"
       class="submit-btn"
@@ -28,6 +30,7 @@ export default {
   },
   methods: {
     handleNewUser() {
+      // using object-spread, our new user object is passed into our prop function in one call.
       this.addNewUser({ ...this.newUser });
     },
     // very basic validation handler
