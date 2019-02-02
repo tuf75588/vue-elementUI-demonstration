@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import fetchUsers from './utils/api.js';
 import UserContainer from './components/UserContainer';
 
 export default {

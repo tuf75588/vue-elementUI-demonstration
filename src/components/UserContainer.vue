@@ -1,56 +1,65 @@
 <template>
   <div>
-    <div>
-      <el-button type="primary" @click="showAddForm">Click to Add User</el-button>
-      <span v-if="showForm === true">
-        <AddUser/>
-      </span>
+    <el-button type="primary" @click="toggleAddForm">{{buttonText}}</el-button>
+    <div v-if="showAddForm === true">
+      <AddUser v-bind:addNewUser="addUser"/>
     </div>
-    <el-table :data="userData">
-      <el-table-column prop="name" label="Name"></el-table-column>
-      <el-table-column prop="username" label="Username"></el-table-column>
-      <el-table-column prop="email" label="Email"></el-table-column>
+    <el-table :data="userData" style="width: 100%">
+      <el-table-column type="expand" label="Edit">
+        <template slot-scope="props">
+          <el-input v-model="props.row.name"></el-input>
+          <el-input v-model="props.row.username"></el-input>
+          <el-input v-model="props.row.email"></el-input>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="Name" prop="name"></el-table-column>
+      <el-table-column align="center" label="username" prop="username"></el-table-column>
+      <el-table-column align="center" label="email" prop="email"></el-table-column>
+      <el-table-column align="right">
+        <template slot-scope="scope">
+          <el-button size="mini" type="danger" plain @click="handleDelete(scope.row)">Delete</el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
+
 
 <script>
 import fetchUsers from '../utils/api';
 import AddUser from './AddUser';
 export default {
-  name: 'UserContainer',
+  data: function() {
+    return {
+      userData: [],
+      showAddForm: false,
+    };
+  },
   components: {
     AddUser,
   },
-  data: () => ({
-    userData: [],
-    search: '',
-    showForm: false,
-  }),
   methods: {
-    handleEdit(index, row) {
-      console.log(index, row);
-    },
-    handleDelete(index, row) {
-      console.log(index, row.email);
-    },
-    onClick(userObj) {
+    addUser(userObj) {
       this.userData.push(userObj);
     },
-    showAddForm() {
-      this.showForm = true;
+    handleDelete(row) {
+      this.userData = this.userData.filter((user) => user.id !== row.id);
+    },
+    toggleAddForm() {
+      this.showAddForm = !this.showAddForm;
+    },
+  },
+  computed: {
+    buttonText: function() {
+      return this.showAddForm === true ? 'Close Form' : 'Add New User';
     },
   },
 
-  mounted() {
-    fetchUsers().then((data) => {
-      this.userData = data;
-    });
+  created() {
+    fetchUsers().then((userData) => (this.userData = userData));
   },
+  name: 'UserContainer',
 };
 </script>
 <style scoped>
-.add-user {
-  float: right;
-}
 </style>

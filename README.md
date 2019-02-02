@@ -6,7 +6,7 @@
 - [x] endpoint for users information [users-endpoint](https://jsonplaceholder.typicode.com/users)
 - [x] Use the Element-UI table to display the users
 - [x] Add 3 columns (Name, Username, Email Address)
-- [ ] Provide functionality to Add, Remove and Edit users from this table.
+- [x] Provide functionality to Add, Remove and Edit users from this table.
 
 # vue_demo
 
