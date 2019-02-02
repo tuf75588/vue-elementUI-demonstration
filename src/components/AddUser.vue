@@ -32,6 +32,10 @@ export default {
     handleNewUser() {
       // using object-spread, our new user object is passed into our prop function in one call.
       this.addNewUser({ ...this.newUser });
+      //clear input fields after submitting!
+      this.newUser.name = '';
+      this.newUser.username = '';
+      this.newUser.email = '';
     },
     // very basic validation handler
   },

@@ -44,6 +44,7 @@ export default {
     //the addUser method will be passed as a prop to the "AddUser" component and handle appending a new user object to the view.
     addUser(userObj) {
       this.userData.push(userObj);
+      this.showAddForm = false;
     },
     //The handleDelete method uses the higher order function "filter" to display all rows except the one matching the unique user identifer.
     handleDelete(row) {
